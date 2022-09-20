@@ -52,6 +52,7 @@ app.get('/', (req, res) => {
     res.send({
         message: "Hola"
     })
+}
 // mongoose.connect("mongodb+srv://camilo:camilo@cluster0.1titkjb.mongodb.net/test", function (err) {
 //     console.log(err)
 

@@ -65,14 +65,14 @@ app.listen(3002, () => {
 
 app.get('/', (req, res) => {
     console.log("entre")
-    res.send({
+    res.status(200).send({
         message: "Hola"
     })
 })
 
 app.get('/prueba', (req, res) => {
     console.log("entre")
-    res.send({
+    res.status(200).send({
         message: "Hola Prueba"
     })
 })

@@ -1,20 +1,34 @@
-var MongoClient = require('mongodb').MongoClient;
-
-const dburl = "mongodb://mongodb:27017/"
 const dbcollection = "redbici"
 const collection = "bici"
 
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const dburl = "mongodb+srv://camilo:camilo@cluster0.1titkjb.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(dburl, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-function insertData(query) {
-    console.log("p1")
-    MongoClient.connect("mongodb://mongodb:27017/", (err, db) => {
-        if (err) throw err;
-        var dbo = db.db(dbcollection);
-        // dbo.collection(collection).insertOne(query, function (err, res) {
-        //     if (err) throw err;
-        //     console.log("1 document inserted");
-        //     db.close();
-        // });
+
+
+
+function insertData() {
+    client.connect(err => {
+        if (err) throw err
+        const collection = client.db(dbcollection).collection(collection);
+        const user = {
+            userId: "123",
+            bikes: [
+                {
+                    idBike: 1,
+                    color: "yellow",
+                    type: "route",
+                    latitude: "38.8951",
+                    longitud: "-77.0364"
+                }
+            ]
+        }
+        collection.insertOne(user, (err) => {
+            if (err) throw err;
+            console.log("1 document inserted");
+            client.close();
+        })
     });
 }
 

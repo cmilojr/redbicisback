@@ -5,21 +5,9 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
-const { allBicis, findById, removeById} = require("./src/db");
+const { insertData, allBicis, findById, removeById} = require("./src/db");
 // defining the Express app
 const app = express();
-
-var MongoClient = require('mongodb').MongoClient;
-
-const dburl = "mongodb://127.0.0.1:27017/"
-const dbcollection = "redbici"
-const collection = "bici"
-
-var mongoose = require('mongoose');
- 
-
-
-
 
 // adding Helmet to enhance your Rest API's security
 app.use(helmet());
@@ -33,38 +21,14 @@ app.use(cors());
 // adding morgan to log HTTP requests
 app.use(morgan('combined'));
 
-// defining an endpoint to return all ads
-
-// mongoose.connect("mongodb+srv://camilo:camilo@cluster0.1titkjb.mongodb.net/test", function (err) {
-//     console.log(err)
-
-//     if (err) throw err;
-  
-//     console.log('Successfully connected');
-  
-//  });
-// });
-
 // starting the server
 app.listen(process.env.PORT || 3000, () => {
     console.log('listening on port: '+process.env.PORT);
 });
 
 app.get('/', (req, res) => {
-    MongoClient.connect(dburl, (err, db) => {
-        if (err) {
-            res.status(400).send(err)
-        };
-        var dbo = db.db(dbcollection);
-        res.status(200).send({
-            nide: "well done"
-        })
-        // dbo.collection(collection).insertOne(query, function (err, res) {
-        //     if (err) throw err;
-        //     console.log("1 document inserted");
-        //     db.close();
-        // });
-    });
+    insertData()
+    res.status(200)
 })
 
 app.get('/prueba', (req, res) => {
@@ -100,18 +64,3 @@ app.post("id:/update", (req, res) => {
     bici.ubicacion = [req.body.lat, req.body.lng];
     update(req.body.id, bici).then(() => res.redirect("/bicicletas"));
 })
-
-function insertData(query) {
-    console.log("p1")
-    MongoClient.connect(dburl, (err, db) => {
-        console.log(err)
-        console.log(db)
-        if (err) throw err;
-        var dbo = db.db(dbcollection);
-        // dbo.collection(collection).insertOne(query, function (err, res) {
-        //     if (err) throw err;
-        //     console.log("1 document inserted");
-        //     db.close();
-        // });
-    });
-}

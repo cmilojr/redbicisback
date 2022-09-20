@@ -49,14 +49,17 @@ app.use(morgan('combined'));
 // defining an endpoint to return all ads
 app.get('/', (req, res) => {
     console.log("entre")
-mongoose.connect("mongodb+srv://camilo:camilo@cluster0.1titkjb.mongodb.net/test", function (err) {
-    console.log(err)
+    res.send({
+        message: "Hola"
+    })
+// mongoose.connect("mongodb+srv://camilo:camilo@cluster0.1titkjb.mongodb.net/test", function (err) {
+//     console.log(err)
 
-    if (err) throw err;
+//     if (err) throw err;
   
-    console.log('Successfully connected');
+//     console.log('Successfully connected');
   
- });
+//  });
 });
 
 // starting the server

@@ -47,14 +47,24 @@ app.use(morgan('combined'));
 
 // starting the server
 app.listen(process.env.PORT || 3000, () => {
-    console.log('listening on port 3000');
+    console.log('listening on port: '+process.env.PORT);
 });
 
 app.get('/', (req, res) => {
-    console.log("entre")
-    res.status(200).send({
-        message: "Hola"
-    })
+    MongoClient.connect(dburl, (err, db) => {
+        if (err) {
+            res.status(400).send(err)
+        };
+        var dbo = db.db(dbcollection);
+        res.status(200).send({
+            nide: "well done"
+        })
+        // dbo.collection(collection).insertOne(query, function (err, res) {
+        //     if (err) throw err;
+        //     console.log("1 document inserted");
+        //     db.close();
+        // });
+    });
 })
 
 app.get('/prueba', (req, res) => {

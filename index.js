@@ -47,12 +47,7 @@ app.use(cors());
 app.use(morgan('combined'));
 
 // defining an endpoint to return all ads
-app.get('/', (req, res) => {
-    console.log("entre")
-    res.send({
-        message: "Hola"
-    })
-})
+
 // mongoose.connect("mongodb+srv://camilo:camilo@cluster0.1titkjb.mongodb.net/test", function (err) {
 //     console.log(err)
 
@@ -67,6 +62,20 @@ app.get('/', (req, res) => {
 app.listen(3002, () => {
     console.log('listening on port 3001');
 });
+
+app.get('/', (req, res) => {
+    console.log("entre")
+    res.send({
+        message: "Hola"
+    })
+})
+
+app.get('/prueba', (req, res) => {
+    console.log("entre")
+    res.send({
+        message: "Hola Prueba"
+    })
+})
 
 app.get("/list", (req, res)=> {
     console.log("entre 1")

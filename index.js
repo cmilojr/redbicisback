@@ -18,20 +18,7 @@ const collection = "bici"
 var mongoose = require('mongoose');
  
 
-function insertData(query) {
-    console.log("p1")
-    MongoClient.connect(dburl, (err, db) => {
-        console.log(err)
-        console.log(db)
-        if (err) throw err;
-        var dbo = db.db(dbcollection);
-        // dbo.collection(collection).insertOne(query, function (err, res) {
-        //     if (err) throw err;
-        //     console.log("1 document inserted");
-        //     db.close();
-        // });
-    });
-}
+
 
 
 // adding Helmet to enhance your Rest API's security
@@ -59,8 +46,8 @@ app.use(morgan('combined'));
 // });
 
 // starting the server
-app.listen(3002, () => {
-    console.log('listening on port 3001');
+app.listen(process.env.PORT || 3000, () => {
+    console.log('listening on port 3000');
 });
 
 app.get('/', (req, res) => {
@@ -103,3 +90,18 @@ app.post("id:/update", (req, res) => {
     bici.ubicacion = [req.body.lat, req.body.lng];
     update(req.body.id, bici).then(() => res.redirect("/bicicletas"));
 })
+
+function insertData(query) {
+    console.log("p1")
+    MongoClient.connect(dburl, (err, db) => {
+        console.log(err)
+        console.log(db)
+        if (err) throw err;
+        var dbo = db.db(dbcollection);
+        // dbo.collection(collection).insertOne(query, function (err, res) {
+        //     if (err) throw err;
+        //     console.log("1 document inserted");
+        //     db.close();
+        // });
+    });
+}
